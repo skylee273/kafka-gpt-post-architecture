@@ -1,0 +1,39 @@
+plugins {
+	id 'java' // Java 프로젝트용 기본 플러그인
+	id 'org.springframework.boot' version '3.3.4' // Spring Boot 플러그인 및 버전
+	id 'io.spring.dependency-management' version '1.1.6' // Spring 의존성 관리 플러그인 및 버전
+}
+
+group = 'com.ehyundai.app' // 프로젝트 그룹 ID
+version = '0.0.1-SNAPSHOT' // 프로젝트 버전
+
+subprojects {
+	apply plugin: 'java' // 하위 프로젝트에 Java 플러그인 적용
+	apply plugin: 'idea' // IntelliJ IDEA 플러그인 적용
+	sourceCompatibility = JavaVersion.VERSION_17 // Java 소스 호환성 지정
+
+	gradle.projectsEvaluated {
+		tasks.withType(JavaCompile) {
+			options.compilerArgs << '-parameters' // 컴파일러 인자 추가
+		}
+	}
+
+	configurations {
+		compileOnly {
+			extendsFrom annotationProcessor // 컴파일 전용 설정 - annotationProcessor 확장
+		}
+	}
+
+	repositories {
+		mavenCentral() // 의존성 관리를 위한 Maven Central 저장소 설정
+	}
+
+	dependencies {
+		compileOnly 'org.projectlombok:lombok:1.18.30' // Lombok 의존성 (컴파일 전용)
+		annotationProcessor 'org.projectlombok:lombok:1.18.30' // Lombok annotation processor 의존성
+	}
+
+	tasks.named('test') {
+		useJUnitPlatform() // 테스트 실행에 JUnit 플랫폼 사용
+	}
+}

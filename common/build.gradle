@@ -1,0 +1,8 @@
+plugins {
+    id 'java-library' // Java 라이브러리 프로젝트용 플러그인
+}
+
+dependencies {
+    api 'com.fasterxml.jackson.core:jackson-databind:2.15.0' // Jackson Databind 라이브러리
+    api 'com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.15.3' // Jackson Datatype JSR-310 라이브러리
+}

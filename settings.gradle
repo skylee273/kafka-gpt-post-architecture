@@ -1,0 +1,11 @@
+rootProject.name = 'kafka-gpt-post-architecture'
+include 'domain'
+include 'common'
+include 'api'
+include 'adapter'
+include 'adapter:mysql'
+include 'adapter:mysql'
+include 'usecase'
+include 'usecase:core'
+include 'usecase:post-usecase'
+
