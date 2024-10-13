@@ -1,5 +1,6 @@
 package com.ehyundai.app;
 
+import com.ehyundai.app.port.OriginalPostMessageProducePort;
 import com.ehyundai.app.port.PostPort;
 import com.ehyundai.app.post.model.Post;
 import lombok.RequiredArgsConstructor;
@@ -11,6 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 public class PostDeleteService implements PostDeleteUsecase {
 
     private final PostPort postPort;
+    private final OriginalPostMessageProducePort originalPostMessageProducePort;
 
     @Transactional
     @Override
@@ -19,6 +21,7 @@ public class PostDeleteService implements PostDeleteUsecase {
         if (post == null) return null;
         post.delete();
         Post savedPost = postPort.save(post);
+        originalPostMessageProducePort.sendDeleteMessage(savedPost.getId());
         return savedPost;
     }
 }

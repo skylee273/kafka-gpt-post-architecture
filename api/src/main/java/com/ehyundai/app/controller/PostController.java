@@ -2,6 +2,7 @@ package com.ehyundai.app.controller;
 
 import com.ehyundai.app.PostCreateUsecase;
 import com.ehyundai.app.PostDeleteUsecase;
+import com.ehyundai.app.PostReadUsecase;
 import com.ehyundai.app.PostUpdateUsecase;
 import com.ehyundai.app.dto.PostCreateRequest;
 import com.ehyundai.app.dto.PostDetailDto;
@@ -21,6 +22,8 @@ public class PostController {
     private final PostCreateUsecase postCreateUsecase;
     private final PostUpdateUsecase postUpdateUsecase;
     private final PostDeleteUsecase postDeleteUsecase;
+    private final PostReadUsecase postReadUsecase;
+
 
     @PostMapping
     ResponseEntity<PostDto> createPost(
@@ -71,6 +74,16 @@ public class PostController {
         return ResponseEntity.ok().body(toDto(post));
     }
 
+    @GetMapping("/{postId}/detail")
+    ResponseEntity<PostDetailDto> readPostDetail(
+            @PathVariable("postId") Long id
+    ) {
+        ResolvedPost resolvedPost = postReadUsecase.getById(id);
+        if (resolvedPost == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok().body(toDto(resolvedPost));
+    }
 
 
     private PostDto toDto(Post post) {

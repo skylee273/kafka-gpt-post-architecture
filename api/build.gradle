@@ -7,5 +7,10 @@ dependencies {
     implementation(project(":domain"))
 
     implementation(project(":usecase:post-usecase"))
+
     implementation(project(":adapter:mysql"))
+    implementation(project(":adapter:kafka"))
+    implementation(project(":adapter:metadata-client"))
+
+
 }
