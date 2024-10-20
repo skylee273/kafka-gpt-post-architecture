@@ -6,9 +6,23 @@ include 'adapter'
 include 'adapter:mysql'
 include 'adapter:kafka'
 include 'adapter:metadata-client'
+include 'adapter:chat-gpt-client'
 
 include 'usecase'
 include 'usecase:core'
 include 'usecase:post-usecase'
 include 'usecase:post-resolving-help-usecase'
+include 'usecase:inspected-post-usecase'
+
+
+include 'worker'
+include 'worker:auto-inspection-worker'
+include 'adapter:mongodb'
+findProject(':adapter:mongodb')?.name = 'mongodb'
+include 'usecase:subscribing-post-usecase'
+findProject(':usecase:subscribing-post-usecase')?.name = 'subscribing-post-usecase'
+include 'usecase:post-search-usecase'
+findProject(':usecase:post-search-usecase')?.name = 'post-search-usecase'
+include 'worker:content-subscribing-worker'
+findProject(':worker:content-subscribing-worker')?.name = 'content-subscribing-worker'
 
